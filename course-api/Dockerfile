@@ -9,4 +9,4 @@ RUN npm run build
 FROM node:11.7.0-slim
 WORKDIR /app
 COPY --from=builder /app ./
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:dev"]

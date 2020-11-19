@@ -1,17 +1,17 @@
-version: '3.8'
+version: '3'
 
 services:
   app:
-    build: ./courses-api
+    build: ./course-api
     volumes: 
-      - ./courses-api:/app
-    ports:
+      - ./course-api:/app
     depends_on:
       - db
 
   db:
     image: postgres:10-alpine
     environment:
+      POSTGRES_DB: courses
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
