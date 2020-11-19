@@ -1,20 +1,24 @@
-version: '3'
+version: "3"
 
 services:
   app:
     build: ./course-api
-    volumes: 
+    volumes:
       - ./course-api:/app
     depends_on:
       - db
+    ports:
+      - 3000:3000
 
   db:
     image: postgres:10-alpine
     environment:
-      POSTGRES_DB: courses
+      POSTGRES_DB: course_api
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
     restart: always
     volumes:
       - ./pgdata:/var/lib/postgresql/data

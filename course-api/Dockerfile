@@ -5,7 +5,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-
 FROM node:11.7.0-slim
 WORKDIR /app
 COPY --from=builder /app ./

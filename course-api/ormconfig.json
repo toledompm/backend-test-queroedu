@@ -1,14 +1,14 @@
 {
    "type": "postgres",
-   "host": "db",
+   "host": "localhost",
    "port": 5432,
    "username": "postgres",
    "password": "postgres",
-   "database": "postgres",
+   "database": "course_api",
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "src/domain/**/*.entity.ts"
    ],
    "migrations": [
       "src/migration/**/*.ts"
