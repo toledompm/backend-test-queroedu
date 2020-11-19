@@ -9,8 +9,8 @@ export class University {
   @Column()
   name: string;
 
-  @Column()
-  logo_url: string;
+  @Column({ name: 'logo_url' })
+  logoUrl: string;
 
   @OneToMany(() => Campus, (campus) => campus.university)
   campuses: Campus[];

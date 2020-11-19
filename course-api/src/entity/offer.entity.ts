@@ -6,20 +6,20 @@ export class Offer {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  full_price: number;
+  @Column({ name: 'full_price' })
+  fullPrice: number;
 
-  @Column()
-  price_with_discount: number;
+  @Column({ name: 'price_with_discount' })
+  priceWithDiscount: number;
 
-  @Column()
-  discount_percentage: number;
+  @Column({ name: 'discount_percentage' })
+  discountPercentage: number;
 
-  @Column()
-  start_date: Date;
+  @Column({ name: 'start_date' })
+  startDate: Date;
 
-  @Column()
-  enrollment_semester: string;
+  @Column({ name: 'enrollment_semester' })
+  enrollmentSemester: string;
 
   @Column()
   enabled: boolean;
