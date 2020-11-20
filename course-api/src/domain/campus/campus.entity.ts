@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { University } from '../university/university.entity';
 import { Course } from '../course/course.entity';
