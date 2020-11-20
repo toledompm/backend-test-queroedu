@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Course } from '../course/course.entity';
 
-@Entity()
+@Entity({ name: 'offers' })
 export class Offer {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,5 +25,6 @@ export class Offer {
   enabled: boolean;
 
   @ManyToOne(() => Course, (course) => course.offers)
+  @JoinColumn({ name: 'course_id' })
   course: Course;
 }

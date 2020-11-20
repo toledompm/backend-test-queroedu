@@ -8,7 +8,7 @@ import {
 import { University } from '../university/university.entity';
 import { Course } from '../course/course.entity';
 
-@Entity()
+@Entity({ name: 'campuses' })
 export class Campus {
   @PrimaryGeneratedColumn()
   id: number;
@@ -20,6 +20,7 @@ export class Campus {
   name: string;
 
   @ManyToOne(() => University, (university) => university.campuses)
+  @JoinColumn({ name: 'university_id' })
   university: University;
 
   @OneToMany(() => Course, (course) => course.campus)
