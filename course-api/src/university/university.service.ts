@@ -20,6 +20,10 @@ export class UniversityService {
   }
 
   async getByName(universityName: string): Promise<UniversityResponseDto> {
+    if (!universityName) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+
     const university = await this.universityRepository.getByName(
       universityName,
     );
@@ -32,6 +36,10 @@ export class UniversityService {
   }
 
   async deleteById(id) {
+    if (!id) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+
     const university = await this.universityRepository.getById(id);
 
     if (!university) {
@@ -39,5 +47,27 @@ export class UniversityService {
     }
 
     return await this.universityRepository.deleteUniversity(university);
+  }
+
+  async updateUniversity(
+    name: string,
+    universityCreateDto: UniversityCreateDto,
+  ): Promise<any> {
+    if (!name || !universityCreateDto) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+
+    const university = await this.universityRepository.getByName(name);
+
+    const updateResult = await this.universityRepository.updateUniversity(
+      university,
+      universityCreateDto,
+    );
+
+    if (updateResult.affected !== 1) {
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+
+    return await this.universityRepository.getById(university.id);
   }
 }

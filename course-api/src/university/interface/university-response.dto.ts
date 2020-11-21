@@ -7,4 +7,8 @@ export class UniversityResponseDto {
 
   @Expose()
   readonly logoUrl: string;
+
+  readonly id: number;
+
+  readonly enabled: boolean;
 }

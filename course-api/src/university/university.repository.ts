@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository, UpdateResult } from 'typeorm';
 import { University } from './university.entity';
 import { UniversityCreateDto } from './interface/university-create.dto';
 
@@ -22,5 +22,12 @@ export class UniversityRepository extends Repository<University> {
     university.enabled = false;
 
     return this.save(university);
+  }
+
+  updateUniversity(
+    university: University,
+    universityCreateDto: UniversityCreateDto,
+  ): Promise<UpdateResult> {
+    return this.update(university, universityCreateDto);
   }
 }

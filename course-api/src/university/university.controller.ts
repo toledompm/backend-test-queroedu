@@ -3,8 +3,9 @@ import {
   Body,
   Post,
   Get,
-  Param,
+  Put,
   Delete,
+  Param,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -32,5 +33,16 @@ export class UniversityController {
   @Delete()
   async deleteById(@Body('id') id: number) {
     return await this.universityService.deleteById(id);
+  }
+
+  @Put('/:name/update')
+  async updateUniversity(
+    @Param('name') name: string,
+    @Body() universityCreateDto: UniversityCreateDto,
+  ): Promise<any> {
+    return await this.universityService.updateUniversity(
+      name,
+      universityCreateDto,
+    );
   }
 }
