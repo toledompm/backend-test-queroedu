@@ -29,7 +29,7 @@ export class Course {
   @Column()
   enabled: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at: Date;
 
   @ManyToOne(() => Campus, (campus) => campus.courses)

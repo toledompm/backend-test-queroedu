@@ -30,7 +30,7 @@ export class Offer {
   @Column()
   enabled: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   deleted_at: Date;
 
   @ManyToOne(() => Course, (course) => course.offers)
