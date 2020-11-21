@@ -38,7 +38,7 @@ export class UniversityService {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    return await this.universityRepository.deleteUniversity(university);
+    return await this.universityRepository.softDeleteUniversity(university);
   }
 
   async updateUniversity(

@@ -18,8 +18,8 @@ export class UniversityRepository extends Repository<University> {
     return this.findOne({ id: id, enabled: true });
   }
 
-  deleteUniversity(university: University): Promise<UpdateResult> {
-    return this.update(university, { enabled: false });
+  softDeleteUniversity(university: University): Promise<UpdateResult> {
+    return this.update(university, { enabled: false, deleted_at: Date.now() });
   }
 
   updateUniversity(
