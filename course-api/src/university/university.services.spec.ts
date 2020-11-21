@@ -28,9 +28,9 @@ describe('UniversityService', () => {
     }).compile();
 
     universityService = module.get<UniversityService>(UniversityService);
-    universityRepositoryMock = module.get(
+    universityRepositoryMock = module.get<UniversityRepository>(
       getRepositoryToken(University),
-    ) as UniversityRepository;
+    );
   });
 
   it('should create a university', async () => {
