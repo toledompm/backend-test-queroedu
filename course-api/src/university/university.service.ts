@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UniversityRepository } from './university.repository';
-import { UniversityDto } from './interface/university.dto';
+import { UniversityCreateDto } from './interface/university-create.dto';
+import { UniversityResponseDto } from './interface/university-response.dto';
 
 @Injectable()
 export class UniversityService {
@@ -10,11 +11,33 @@ export class UniversityService {
     private readonly universityRepository: UniversityRepository,
   ) {}
 
-  async createUniversity(universityDto: UniversityDto): Promise<UniversityDto> {
-    return await this.universityRepository.createUniversity(universityDto);
+  async createUniversity(
+    universityCreateDto: UniversityCreateDto,
+  ): Promise<UniversityResponseDto> {
+    return await this.universityRepository.createUniversity(
+      universityCreateDto,
+    );
   }
 
-  async getUniversityByName(universityName: string): Promise<UniversityDto> {
-    return await this.universityRepository.getUniversityByName(universityName);
+  async getByName(universityName: string): Promise<UniversityResponseDto> {
+    const university = await this.universityRepository.getByName(
+      universityName,
+    );
+
+    if (university === undefined) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return university;
+  }
+
+  async deleteById(id) {
+    const university = await this.universityRepository.getById(id);
+
+    if (!university) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return await this.universityRepository.deleteUniversity(university);
   }
 }
