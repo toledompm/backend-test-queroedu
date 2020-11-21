@@ -23,6 +23,9 @@ export class Campus {
   @Column()
   enabled: boolean;
 
+  @Column()
+  deleted_at: Date;
+
   @ManyToOne(() => University, (university) => university.campuses)
   @JoinColumn({ name: 'university_id' })
   university: University;

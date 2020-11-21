@@ -15,6 +15,9 @@ export class University {
   @Column()
   enabled: boolean;
 
+  @Column()
+  deleted_at: Date;
+
   @OneToMany(() => Campus, (campus) => campus.university)
   campuses: Campus[];
 }
