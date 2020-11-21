@@ -26,6 +26,9 @@ export class Course {
   @Column()
   kind: string;
 
+  @Column()
+  enabled: boolean;
+
   @ManyToOne(() => Campus, (campus) => campus.courses)
   @JoinColumn({ name: 'campus_id' })
   campus: Campus;

@@ -12,6 +12,9 @@ export class University {
   @Column({ name: 'logo_url' })
   logoUrl: string;
 
+  @Column()
+  enabled: boolean;
+
   @OneToMany(() => Campus, (campus) => campus.university)
   campuses: Campus[];
 }

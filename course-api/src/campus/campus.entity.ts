@@ -20,6 +20,9 @@ export class Campus {
   @Column()
   name: string;
 
+  @Column()
+  enabled: boolean;
+
   @ManyToOne(() => University, (university) => university.campuses)
   @JoinColumn({ name: 'university_id' })
   university: University;
