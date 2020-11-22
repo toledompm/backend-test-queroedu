@@ -31,7 +31,7 @@ export class UniversityController {
   }
 
   @Delete()
-  async deleteById(@Body('id') id: number) {
+  async deleteById(@Body('id') id: number): Promise<void> {
     return await this.universityService.deleteById(id);
   }
 
@@ -39,7 +39,7 @@ export class UniversityController {
   async updateUniversity(
     @Param('name') name: string,
     @Body() universityCreateDto: UniversityCreateDto,
-  ): Promise<any> {
+  ): Promise<void> {
     return await this.universityService.updateUniversity(
       name,
       universityCreateDto,

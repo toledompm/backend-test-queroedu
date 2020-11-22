@@ -3,19 +3,19 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class AddDeletedAtColumn1605994600695 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.query(
-      `ALTER TABLE universities ADD COLUMN "deleted_at" DATE DEFAULT NULL;`,
+      `ALTER TABLE universities ADD COLUMN "deleted_at" TIMESTAMP WITH TIME ZONE DEFAULT NULL;`,
     );
 
     queryRunner.query(
-      `ALTER TABLE campuses ADD COLUMN "deleted_at" DATE DEFAULT NULL;`,
+      `ALTER TABLE campuses ADD COLUMN "deleted_at" TIMESTAMP WITH TIME ZONE DEFAULT NULL;`,
     );
 
     queryRunner.query(
-      `ALTER TABLE courses ADD COLUMN "deleted_at" DATE DEFAULT NULL;`,
+      `ALTER TABLE courses ADD COLUMN "deleted_at" TIMESTAMP WITH TIME ZONE DEFAULT NULL;`,
     );
 
     queryRunner.query(
-      `ALTER TABLE offers ADD COLUMN "deleted_at" DATE DEFAULT NULL;`,
+      `ALTER TABLE offers ADD COLUMN "deleted_at" TIMESTAMP WITH TIME ZONE DEFAULT NULL;`,
     );
   }
 

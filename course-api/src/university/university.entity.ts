@@ -15,7 +15,7 @@ export class University {
   @Column()
   enabled: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'timestamptz' })
   deleted_at: Date;
 
   @OneToMany(() => Campus, (campus) => campus.university)

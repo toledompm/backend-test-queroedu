@@ -19,7 +19,7 @@ export class UniversityRepository extends Repository<University> {
   }
 
   softDeleteUniversity(university: University): Promise<UpdateResult> {
-    return this.update(university, { enabled: false, deleted_at: Date.now() });
+    return this.update(university, { enabled: false, deleted_at: `now()` });
   }
 
   updateUniversity(

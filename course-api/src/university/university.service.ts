@@ -31,20 +31,29 @@ export class UniversityService {
     return university;
   }
 
-  async deleteById(id): Promise<any> {
+  async deleteById(id): Promise<void> {
     const university = await this.universityRepository.getById(id);
 
     if (!university) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    return await this.universityRepository.softDeleteUniversity(university);
+    const updateResult = await this.universityRepository.softDeleteUniversity(
+      university,
+    );
+
+    if (updateResult.affected !== 1) {
+      throw new HttpException(
+        'Update Failed',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async updateUniversity(
     name: string,
     universityCreateDto: UniversityCreateDto,
-  ): Promise<UniversityResponseDto> {
+  ): Promise<void> {
     const university = await this.universityRepository.getByName(name);
 
     if (!university) {
@@ -57,9 +66,10 @@ export class UniversityService {
     );
 
     if (updateResult.affected !== 1) {
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Update Failed',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-
-    return await this.universityRepository.getById(university.id);
   }
 }
