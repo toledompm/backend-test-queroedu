@@ -30,6 +30,9 @@ export class Offer {
   @Column()
   enabled: boolean;
 
+  @Column({ nullable: true, type: 'timestamptz' })
+  deleted_at: Date;
+
   @ManyToOne(() => Course, (course) => course.offers)
   @JoinColumn({ name: 'course_id' })
   course: Course;

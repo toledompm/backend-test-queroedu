@@ -12,6 +12,12 @@ export class University {
   @Column({ name: 'logo_url' })
   logoUrl: string;
 
+  @Column()
+  enabled: boolean;
+
+  @Column({ nullable: true, type: 'timestamptz' })
+  deleted_at: Date;
+
   @OneToMany(() => Campus, (campus) => campus.university)
   campuses: Campus[];
 }

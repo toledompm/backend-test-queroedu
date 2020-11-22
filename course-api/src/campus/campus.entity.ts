@@ -20,6 +20,12 @@ export class Campus {
   @Column()
   name: string;
 
+  @Column()
+  enabled: boolean;
+
+  @Column({ nullable: true, type: 'timestamptz' })
+  deleted_at: Date;
+
   @ManyToOne(() => University, (university) => university.campuses)
   @JoinColumn({ name: 'university_id' })
   university: University;

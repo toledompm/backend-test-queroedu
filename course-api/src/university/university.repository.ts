@@ -1,16 +1,31 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository, UpdateResult } from 'typeorm';
 import { University } from './university.entity';
-import { UniversityDto } from './interface/university.dto';
+import { UniversityCreateDto } from './interface/university-create.dto';
 
 @EntityRepository(University)
 export class UniversityRepository extends Repository<University> {
-  createUniversity(universityDto: UniversityDto): Promise<University> {
-    return this.save(universityDto);
+  createUniversity(
+    universityCreateDto: UniversityCreateDto,
+  ): Promise<University> {
+    return this.save(universityCreateDto);
   }
 
-  getUniversityByName(universityName: string): Promise<University> {
-    return this.createQueryBuilder()
-      .where('name = :name', { name: universityName })
-      .getOne();
+  getByName(universityName: string): Promise<University> {
+    return this.findOne({ name: universityName, enabled: true });
+  }
+
+  getById(id: number): Promise<University> {
+    return this.findOne({ id: id, enabled: true });
+  }
+
+  softDeleteUniversity(university: University): Promise<UpdateResult> {
+    return this.update(university, { enabled: false, deleted_at: `now()` });
+  }
+
+  updateUniversity(
+    university: University,
+    universityCreateDto: UniversityCreateDto,
+  ): Promise<UpdateResult> {
+    return this.update(university, universityCreateDto);
   }
 }
