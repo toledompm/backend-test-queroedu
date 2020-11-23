@@ -5,6 +5,7 @@ import { University } from './university.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UniversityCreateDto } from './interface/university-create.dto';
 import { UniversityRepository } from './university.repository';
+import { UpdateResult } from 'typeorm';
 
 const { validUniversity, validUniversityDto } = UniversityMocks;
 
@@ -89,5 +90,114 @@ describe('UniversityService', () => {
     await expect(universityService.deleteById(nonExistingId)).rejects.toThrow(
       'Not Found',
     );
+  });
+
+  it('should throw "Update Failed" when soft delete fails', async () => {
+    const existingId = 1;
+
+    jest.spyOn(universityRepositoryMock, 'getById').mockImplementation(
+      (_id: number): Promise<University> => {
+        return Promise.resolve(validUniversity);
+      },
+    );
+
+    jest
+      .spyOn(universityRepositoryMock, 'softDeleteUniversity')
+      .mockImplementation(
+        (_university: University): Promise<UpdateResult> => {
+          return Promise.resolve({ affected: 0 } as UpdateResult);
+        },
+      );
+
+    await expect(universityService.deleteById(existingId)).rejects.toThrow(
+      'Update Failed',
+    );
+  });
+
+  it('should call repository functions and pass when update result is positive', async () => {
+    const existingId = 1;
+
+    jest.spyOn(universityRepositoryMock, 'getById').mockImplementation(
+      (_id: number): Promise<University> => {
+        return Promise.resolve(validUniversity);
+      },
+    );
+
+    jest
+      .spyOn(universityRepositoryMock, 'softDeleteUniversity')
+      .mockImplementation(
+        (_university: University): Promise<UpdateResult> => {
+          return Promise.resolve({ affected: 1 } as UpdateResult);
+        },
+      );
+
+    await universityService.deleteById(existingId);
+
+    expect(universityRepositoryMock.getById).toHaveBeenCalled();
+    expect(universityRepositoryMock.softDeleteUniversity).toHaveBeenCalled();
+  });
+
+  it('should throw "not_found" when updating non-existing university', async () => {
+    const universityName = 'valid university name';
+
+    jest.spyOn(universityRepositoryMock, 'getByName').mockImplementation(
+      (_name: string): Promise<University> => {
+        return Promise.resolve(undefined);
+      },
+    );
+
+    await expect(
+      universityService.updateUniversity(universityName, validUniversityDto),
+    ).rejects.toThrow('Not Found');
+  });
+
+  it('should throw "Update Failed" when repository updateUniversity fails', async () => {
+    const universityName = 'valid university name';
+
+    jest.spyOn(universityRepositoryMock, 'getByName').mockImplementation(
+      (_name: string): Promise<University> => {
+        return Promise.resolve(validUniversity);
+      },
+    );
+
+    jest.spyOn(universityRepositoryMock, 'updateUniversity').mockImplementation(
+      (
+        _university: University,
+        _universityCreateDto: UniversityCreateDto,
+      ): Promise<UpdateResult> => {
+        return Promise.resolve({ affected: 0 } as UpdateResult);
+      },
+    );
+
+    await expect(
+      universityService.updateUniversity(universityName, validUniversityDto),
+    ).rejects.toThrow('Update Failed');
+  });
+
+  it('should call repository methods and pass when updating university', async () => {
+    const universityName = 'valid university name';
+
+    jest.spyOn(universityRepositoryMock, 'getByName').mockImplementation(
+      (_name: string): Promise<University> => {
+        return Promise.resolve(validUniversity);
+      },
+    );
+
+    jest.spyOn(universityRepositoryMock, 'updateUniversity').mockImplementation(
+      (
+        _university: University,
+        _universityCreateDto: UniversityCreateDto,
+      ): Promise<UpdateResult> => {
+        return Promise.resolve({ affected: 1 } as UpdateResult);
+      },
+    );
+
+    await universityService.updateUniversity(
+      universityName,
+      validUniversityDto,
+    );
+
+    expect(universityRepositoryMock.getByName).toHaveBeenCalled();
+    expect(universityRepositoryMock.updateUniversity).toHaveBeenCalled();
   });
 });
