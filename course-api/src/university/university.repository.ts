@@ -1,6 +1,5 @@
 import { EntityRepository, UpdateResult } from 'typeorm';
 import { University } from './university.entity';
-import { UniversityCreateDto } from './interface/university-create.dto';
 import { BaseRepository } from '../common/base.repository';
 
 @EntityRepository(University)
