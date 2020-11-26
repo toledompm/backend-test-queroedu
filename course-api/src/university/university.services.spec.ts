@@ -31,7 +31,7 @@ describe('UniversityService', () => {
   });
 
   it('should create a university', async () => {
-    jest.spyOn(universityRepositoryMock, 'createUniversity').mockImplementation(
+    jest.spyOn(universityRepositoryMock, 'save').mockImplementation(
       (_universityDto: UniversityCreateDto): Promise<University> => {
         expect(_universityDto).toEqual(validUniversityDto);
 
@@ -160,7 +160,7 @@ describe('UniversityService', () => {
       },
     );
 
-    jest.spyOn(universityRepositoryMock, 'updateUniversity').mockImplementation(
+    jest.spyOn(universityRepositoryMock, 'update').mockImplementation(
       (
         _university: University,
         _universityCreateDto: UniversityCreateDto,
@@ -183,7 +183,7 @@ describe('UniversityService', () => {
       },
     );
 
-    jest.spyOn(universityRepositoryMock, 'updateUniversity').mockImplementation(
+    jest.spyOn(universityRepositoryMock, 'update').mockImplementation(
       (
         _university: University,
         _universityCreateDto: UniversityCreateDto,
@@ -198,6 +198,6 @@ describe('UniversityService', () => {
     );
 
     expect(universityRepositoryMock.getByName).toHaveBeenCalled();
-    expect(universityRepositoryMock.updateUniversity).toHaveBeenCalled();
+    expect(universityRepositoryMock.update).toHaveBeenCalled();
   });
 });

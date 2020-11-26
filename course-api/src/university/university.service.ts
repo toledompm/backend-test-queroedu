@@ -14,9 +14,7 @@ export class UniversityService {
   async createUniversity(
     universityCreateDto: UniversityCreateDto,
   ): Promise<UniversityResponseDto> {
-    return await this.universityRepository.createUniversity(
-      universityCreateDto,
-    );
+    return await this.universityRepository.save(universityCreateDto);
   }
 
   async getByName(universityName: string): Promise<UniversityResponseDto> {
@@ -60,7 +58,7 @@ export class UniversityService {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    const updateResult = await this.universityRepository.updateUniversity(
+    const updateResult = await this.universityRepository.update(
       university,
       universityCreateDto,
     );
