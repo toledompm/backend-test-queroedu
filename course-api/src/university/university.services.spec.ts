@@ -114,7 +114,7 @@ describe('UniversityService', () => {
     );
   });
 
-  it('should call repository functions and pass when update result is positive', async () => {
+  it('should call repository functions and pass when softDelete passes', async () => {
     const existingId = 1;
 
     jest.spyOn(universityRepositoryMock, 'getById').mockImplementation(
