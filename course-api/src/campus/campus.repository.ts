@@ -1,10 +1,6 @@
-import { EntityRepository, Repository } from 'typeorm';
-import { CampusCreateDto } from './interface/campus-create.dto';
+import { EntityRepository } from 'typeorm';
 import { Campus } from './campus.entity';
+import { BaseRepository } from '../common/base.repository';
 
 @EntityRepository()
-export class CampusRepository extends Repository<Campus> {
-  createUniversity(campusCreateDto: CampusCreateDto) {
-    return this.save(campusCreateDto);
-  }
-}
+export class CampusRepository extends BaseRepository<Campus> {}
