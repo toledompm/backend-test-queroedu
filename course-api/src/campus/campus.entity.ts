@@ -8,23 +8,15 @@ import {
 } from 'typeorm';
 import { University } from '../university/university.entity';
 import { Course } from '../course/course.entity';
+import { BaseEntity } from '../common/base.entity';
 
 @Entity({ name: 'campuses' })
-export class Campus {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Campus extends BaseEntity {
   @Column()
   city: string;
 
   @Column()
   name: string;
-
-  @Column()
-  enabled: boolean;
-
-  @Column({ nullable: true, type: 'timestamptz' })
-  deleted_at: Date;
 
   @ManyToOne(() => University, (university) => university.campuses)
   @JoinColumn({ name: 'university_id' })

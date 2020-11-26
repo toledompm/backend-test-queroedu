@@ -1,22 +1,16 @@
-import { Exclude, Expose } from 'class-transformer';
+import { BaseCreateDto } from '../../common/base-create.dto';
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
-@Exclude()
-export class CcampusCreateDto {
-  @Expose()
+export class CampusCreateDto extends BaseCreateDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
 
-  @Expose()
   @IsString()
   @IsNotEmpty()
   readonly city: string;
 
-  @Expose()
   @IsNumber()
   @IsNotEmpty()
   readonly university_id: id;
-
-  readonly enabled = true;
 }
