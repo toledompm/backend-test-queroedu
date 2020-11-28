@@ -12,5 +12,5 @@ export class CampusCreateDto extends BaseCreateDto {
 
   @IsNumber()
   @IsNotEmpty()
-  readonly university_id: id;
+  readonly university_id: number;
 }

@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Campus } from './campus.entity';
 import { CampusRepository } from './campus.repository';
 import { CampusCreateDto } from './interface/campus-create.dto';
+import { CampusResponseDto } from './interface/campus-response.dto';
 
 @Injectable()
 export class CampusService {
@@ -11,16 +11,16 @@ export class CampusService {
     private readonly campusRepository: CampusRepository,
   ) {}
 
-  async createCampus(createDto: CampusCreateDto): Promise<Campus> {
+  async createCampus(createDto: CampusCreateDto): Promise<CampusResponseDto> {
     return await this.campusRepository.save(createDto);
   }
 
-  async getCampusById(campusId: number): Promise<Campus> {
+  async getCampusById(campusId: number): Promise<CampusResponseDto> {
     return await this.campusRepository.getById(campusId);
   }
 
   async deleteById(id: number): Promise<void> {
-    const campus = this.campusRepository.getById(id);
+    const campus = await this.campusRepository.getById(id);
 
     if (!campus) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
@@ -37,7 +37,7 @@ export class CampusService {
   }
 
   async updateCampus(id: number, newCampus: CampusCreateDto): Promise<void> {
-    const campus = this.campusRepository.getById(id);
+    const campus = await this.campusRepository.getById(id);
 
     if (!campus) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
