@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
 import { UniversityMocks } from '../__mocks__/university';
 import { UniversityService } from './university.service';
@@ -101,13 +102,11 @@ describe('UniversityService', () => {
       },
     );
 
-    jest
-      .spyOn(universityRepositoryMock, 'softDeleteUniversity')
-      .mockImplementation(
-        (_university: University): Promise<UpdateResult> => {
-          return Promise.resolve({ affected: 0 } as UpdateResult);
-        },
-      );
+    jest.spyOn(universityRepositoryMock, 'softDeleteEntity').mockImplementation(
+      (_university: University): Promise<UpdateResult> => {
+        return Promise.resolve({ affected: 0 } as UpdateResult);
+      },
+    );
 
     await expect(universityService.deleteById(existingId)).rejects.toThrow(
       'Update Failed',
@@ -123,18 +122,16 @@ describe('UniversityService', () => {
       },
     );
 
-    jest
-      .spyOn(universityRepositoryMock, 'softDeleteUniversity')
-      .mockImplementation(
-        (_university: University): Promise<UpdateResult> => {
-          return Promise.resolve({ affected: 1 } as UpdateResult);
-        },
-      );
+    jest.spyOn(universityRepositoryMock, 'softDeleteEntity').mockImplementation(
+      (_university: University): Promise<UpdateResult> => {
+        return Promise.resolve({ affected: 1 } as UpdateResult);
+      },
+    );
 
     await universityService.deleteById(existingId);
 
     expect(universityRepositoryMock.getById).toHaveBeenCalled();
-    expect(universityRepositoryMock.softDeleteUniversity).toHaveBeenCalled();
+    expect(universityRepositoryMock.softDeleteEntity).toHaveBeenCalled();
   });
 
   it('should throw "not_found" when updating non-existing university', async () => {

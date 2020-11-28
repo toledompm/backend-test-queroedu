@@ -1,4 +1,4 @@
-import { EntityRepository, UpdateResult } from 'typeorm';
+import { EntityRepository } from 'typeorm';
 import { University } from './university.entity';
 import { BaseRepository } from '../common/base.repository';
 
@@ -6,9 +6,5 @@ import { BaseRepository } from '../common/base.repository';
 export class UniversityRepository extends BaseRepository<University> {
   getByName(universityName: string): Promise<University> {
     return this.findOne({ name: universityName, enabled: true });
-  }
-
-  softDeleteUniversity(university: University): Promise<UpdateResult> {
-    return this.update(university, { enabled: false, deleted_at: `now()` });
   }
 }

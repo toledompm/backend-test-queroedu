@@ -36,7 +36,7 @@ export class UniversityService {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    const updateResult = await this.universityRepository.softDeleteUniversity(
+    const updateResult = await this.universityRepository.softDeleteEntity(
       university,
     );
 
