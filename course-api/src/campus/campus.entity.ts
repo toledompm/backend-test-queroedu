@@ -11,7 +11,9 @@ export class Campus extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToOne(() => University, (university) => university.campuses)
+  @ManyToOne(() => University, (university) => university.campuses, {
+    eager: true,
+  })
   @JoinColumn({ name: 'university_id' })
   university: University;
 
