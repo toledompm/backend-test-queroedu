@@ -22,12 +22,16 @@ export class UniversityController {
   async create(
     @Body() universityCreateDto: UniversityCreateDto,
   ): Promise<UniversityResponseDto> {
-    return await this.universityService.createUniversity(universityCreateDto);
+    return (await this.universityService.createUniversity(
+      universityCreateDto,
+    )) as UniversityResponseDto;
   }
 
   @Get(':name')
   async getByName(@Param('name') name: string): Promise<UniversityResponseDto> {
-    return await this.universityService.getByName(name);
+    return (await this.universityService.getByName(
+      name,
+    )) as UniversityResponseDto;
   }
 
   @Delete()
