@@ -1,5 +1,6 @@
 import { BaseCreateDto } from '../../common/base-create.dto';
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
+import { University } from '../../university/university.entity';
 
 export class CampusCreateDto extends BaseCreateDto {
   @IsString()
@@ -10,7 +11,6 @@ export class CampusCreateDto extends BaseCreateDto {
   @IsNotEmpty()
   readonly city: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  readonly university: number;
+  readonly university: University;
 }
